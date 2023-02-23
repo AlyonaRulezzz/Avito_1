@@ -1,19 +1,3 @@
 <resources>
     <string name="app_name">avito-tech_bx-android-trainee-assigment</string>
-    <string name="element_1">1</string>
-    <string name="element_button">delete element</string>
-    <string name="element_2">2</string>
-    <string name="element_3">3</string>
-    <string name="element_4">4</string>
-    <string name="element_5">5</string>
-    <string name="element_6">6</string>
-    <string name="element_7">7</string>
-    <string name="element_8">8</string>
-    <string name="element_9">9</string>
-    <string name="element_10">10</string>
-    <string name="element_11">11</string>
-    <string name="element_12">12</string>
-    <string name="element_13">13</string>
-    <string name="element_14">14</string>
-    <string name="element_15">15</string>
 </resources>
