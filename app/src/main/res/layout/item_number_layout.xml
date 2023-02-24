@@ -30,6 +30,11 @@
             android:textColor="#890E0E"
             android:textSize="34sp" />
 
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 
