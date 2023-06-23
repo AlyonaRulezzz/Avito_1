@@ -3,15 +3,14 @@ package com.example.avito_tech_bx_android_trainee_assigment.adapter
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.avito_tech_bx_android_trainee_assigment.R
 import com.example.avito_tech_bx_android_trainee_assigment.databinding.ItemNumberLayoutBinding
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_number_layout.view.*
-import kotlin.properties.Delegates
 
 class NumberAdapter(
     val listener: (value: Int) -> Unit,
@@ -24,11 +23,14 @@ class NumberAdapter(
 
     inner class NumberViewHolder(val binding: ItemNumberLayoutBinding): RecyclerView.ViewHolder(binding.root) {
 
+        private val context = binding.root.context
+
         fun bind(value: NumberModel) {
             itemView.tv_number.text = value.number.toString()
-            itemView.tv_delete.text = value.x
-            binding.ivCancel.setBackgroundResource(R.drawable.ic_launcher_background)
-            itemView.tv_delete.setOnClickListener {
+            val res = ContextCompat.getDrawable(context, R.drawable.ic_baseline_delete_24)
+            itemView.iv_cancel.setImageDrawable(res)
+//            binding.ivCancel.setBackgroundResource(R.drawable.ic_baseline_delete_24)
+            itemView.iv_cancel.setOnClickListener {
                 listener(value.number)
 //            holder.itemView.rv_number.removeViewAt(position)
                 notifyItemRemoved(position)

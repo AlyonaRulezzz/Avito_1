@@ -22,18 +22,11 @@
             android:textColor="#CE1313"
             android:textSize="34sp" />
 
-        <TextView
-            android:id="@+id/tv_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="x"
-            android:textColor="#890E0E"
-            android:textSize="34sp" />
-
         <ImageView
             android:id="@+id/iv_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="35sp"
+            android:layout_height="40sp"
+            android:src="@drawable/ic_baseline_delete_24"/>
 
     </LinearLayout>
 
