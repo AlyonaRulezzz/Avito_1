@@ -34,7 +34,7 @@ class NumberAdapter(
                 listener(value.number)
 //            holder.itemView.rv_number.removeViewAt(position)
                 notifyItemRemoved(position)
-//            notifyDataSetChanged()
+            notifyDataSetChanged()
             }
         }
     }
