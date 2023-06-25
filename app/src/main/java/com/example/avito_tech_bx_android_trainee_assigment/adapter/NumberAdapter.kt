@@ -29,10 +29,8 @@ class NumberAdapter(
             itemView.tv_number.text = value.number.toString()
             val res = ContextCompat.getDrawable(context, R.drawable.ic_baseline_delete_24)
             itemView.iv_cancel.setImageDrawable(res)
-//            binding.ivCancel.setBackgroundResource(R.drawable.ic_baseline_delete_24)
             itemView.iv_cancel.setOnClickListener {
                 listener(value.number)
-//            holder.itemView.rv_number.removeViewAt(position)
                 notifyItemRemoved(layoutPosition)
             }
         }
