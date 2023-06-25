@@ -33,8 +33,7 @@ class NumberAdapter(
             itemView.iv_cancel.setOnClickListener {
                 listener(value.number)
 //            holder.itemView.rv_number.removeViewAt(position)
-                notifyItemRemoved(position)
-            notifyDataSetChanged()
+                notifyItemRemoved(layoutPosition)
             }
         }
     }
@@ -59,7 +58,6 @@ class NumberAdapter(
     @SuppressLint("NotifyDataSetChanged")
     fun setList(list: List<NumberModel>) {
         numberList = list
-        notifyDataSetChanged()
     }
 
 }
