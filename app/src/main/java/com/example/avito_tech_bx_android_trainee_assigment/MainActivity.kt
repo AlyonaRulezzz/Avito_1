@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         adapter.setList(list)
-//        deleteItem(14)
         addItem()
     }
 
@@ -59,11 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         var i = 16
         GlobalScope.launch {
-////            delay(1_000)
             withContext(Dispatchers.Main) {
-//                adapter.setList(List(i) { NumberModel(it + 1) })
-
-//                    delay(1_000)
             CoroutineScope(Dispatchers.Main).launch {
                 while (true) {
                     if (deletedPool.isEmpty()) {
