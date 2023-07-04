@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteItem(i: Int) {
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             delay(2_000)
             withContext(Dispatchers.Main) {
                 adapter.setList(List(i) { NumberModel(it + 1) })
@@ -57,22 +57,18 @@ class MainActivity : AppCompatActivity() {
         lateinit var number: NumberModel
 
         var i = 16
-        GlobalScope.launch {
-            withContext(Dispatchers.Main) {
-            CoroutineScope(Dispatchers.Main).launch {
-                while (true) {
-                    if (deletedPool.isEmpty()) {
-                        number = NumberModel(i)
-                        list.add(number)
-                        i++
-                    } else {
-                        list.add(NumberModel(deletedPool.remove()))
-                    }
-                    adapter.notifyDataSetChanged()
-                    recyclerView.smoothScrollToPosition(adapter.itemCount)
-                    delay(2_000)
+        CoroutineScope(Dispatchers.Main).launch {
+            while (true) {
+                if (deletedPool.isEmpty()) {
+                    number = NumberModel(i)
+                    list.add(number)
+                    i++
+                } else {
+                    list.add(NumberModel(deletedPool.remove()))
                 }
-        }
+                adapter.notifyDataSetChanged()
+                recyclerView.smoothScrollToPosition(adapter.itemCount)
+                delay(2_000)
             }
         }
     }

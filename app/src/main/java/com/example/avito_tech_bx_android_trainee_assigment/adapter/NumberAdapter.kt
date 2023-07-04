@@ -1,7 +1,6 @@
 package com.example.avito_tech_bx_android_trainee_assigment.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -37,7 +36,6 @@ class NumberAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumberViewHolder {
-        Log.d("MY_LOG", "onCreateViewHolder: ${++i}")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_number_layout, parent, false)
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemNumberLayoutBinding.inflate(inflater, parent, false)
