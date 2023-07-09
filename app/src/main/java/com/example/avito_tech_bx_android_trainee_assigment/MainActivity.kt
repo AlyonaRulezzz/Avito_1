@@ -12,6 +12,7 @@ import com.example.avito_tech_bx_android_trainee_assigment.databinding.ActivityM
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.coroutines.*
 import viewmodel.MainActivityViewModel
+import viewmodel.MainActivityViewModelFactory
 import java.util.LinkedList
 import java.util.Queue
 import java.util.logging.Logger
@@ -43,14 +44,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        val viewModel : MainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        val viewModel = ViewModelProvider(this, MainActivityViewModelFactory(list)).get(MainActivityViewModel::class.java)
         viewModel.getLiveDataObserver().observe(this, Observer {
             it?.let {
                 adapter.setList(it)
+                addItem()
                 adapter.notifyDataSetChanged()
             }
+            viewModel.refreshList()
                 Log.d("MY_LOG", "inside initViewModel")
-                addItem()
         })
     }
 
