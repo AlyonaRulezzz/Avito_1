@@ -37,7 +37,6 @@ class NumberAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumberViewHolder {
-        Log.d("MY_LOG", "onCreateViewHolder: ${++i}")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_number_layout, parent, false)
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemNumberLayoutBinding.inflate(inflater, parent, false)

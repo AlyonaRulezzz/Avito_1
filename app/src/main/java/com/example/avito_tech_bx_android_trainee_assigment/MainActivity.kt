@@ -2,14 +2,19 @@ package com.example.avito_tech_bx_android_trainee_assigment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.avito_tech_bx_android_trainee_assigment.adapter.NumberAdapter
 import com.example.avito_tech_bx_android_trainee_assigment.databinding.ActivityMainBinding
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.coroutines.*
+import viewmodel.MainActivityViewModel
 import java.util.LinkedList
 import java.util.Queue
+import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initial()
+
+        initViewModel()
     }
 
     private fun initial() {
@@ -31,13 +38,25 @@ class MainActivity : AppCompatActivity() {
         adapter = NumberAdapter(::adapterListener)
         recyclerView.adapter = adapter
 
-        adapter.setList(list)
-        addItem()
+//        adapter.setList(list)
+//        addItem()
+    }
+
+    private fun initViewModel() {
+        val viewModel : MainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel.getLiveDataObserver().observe(this, Observer {
+            it?.let {
+                adapter.setList(it)
+                adapter.notifyDataSetChanged()
+            }
+                Log.d("MY_LOG", "inside initViewModel")
+                addItem()
+        })
     }
 
     private fun adapterListener(value: Int) {
         Toast.makeText(this, "deleted $value", Toast.LENGTH_SHORT).show()
-        list = list.filter { it.number != value } as ArrayList<NumberModel>  ///////
+        list = list.filter { it.number != value } as ArrayList<NumberModel>
         adapter.setList(list)
         deletedPool.add(value)
     }
