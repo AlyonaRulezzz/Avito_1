@@ -45,13 +45,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         val viewModel = ViewModelProvider(this, MainActivityViewModelFactory(list)).get(MainActivityViewModel::class.java)
+        viewModel.refreshList()
         viewModel.getLiveDataObserver().observe(this, Observer {
             it?.let {
                 adapter.setList(it)
                 addItem()
                 adapter.notifyDataSetChanged()
             }
-            viewModel.refreshList()
                 Log.d("MY_LOG", "inside initViewModel")
         })
     }
