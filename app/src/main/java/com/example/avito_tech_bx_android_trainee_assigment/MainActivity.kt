@@ -49,11 +49,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.getLiveDataObserver().observe(this, Observer {
             it?.let {
                 adapter.setList(it)
-                addItem()
-                adapter.notifyDataSetChanged()
+//                adapter.notifyDataSetChanged()
             }
                 Log.d("MY_LOG", "inside initViewModel")
         })
+                addItem()
     }
 
     private fun adapterListener(value: Int) {
@@ -63,15 +63,15 @@ class MainActivity : AppCompatActivity() {
         deletedPool.add(value)
     }
 
-    private fun deleteItem(i: Int) {
-        GlobalScope.launch {
-            delay(2_000)
-            withContext(Dispatchers.Main) {
-                adapter.setList(List(i) { NumberModel(it + 1) })
-            }
-            deleteItem(i - 1)
-        }
-    }
+//    private fun deleteItem(i: Int) {
+//        GlobalScope.launch {
+//            delay(2_000)
+//            withContext(Dispatchers.Main) {
+//                adapter.setList(List(i) { NumberModel(it + 1) })
+//            }
+//            deleteItem(i - 1)
+//        }
+//    }
 
     private fun addItem() {
 
