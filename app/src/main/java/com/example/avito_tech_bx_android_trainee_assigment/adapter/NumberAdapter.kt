@@ -54,6 +54,7 @@ class NumberAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun setList(list: List<NumberModel>) {
+        notifyDataSetChanged()
         numberList = list
     }
 
