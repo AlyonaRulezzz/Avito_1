@@ -57,5 +57,4 @@ class NumberAdapter(
         numberList = list
         notifyDataSetChanged()
     }
-
 }

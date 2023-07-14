@@ -6,36 +6,57 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.avito_tech_bx_android_trainee_assigment.adapter.NumberAdapter
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
+import kotlinx.coroutines.*
+import java.util.*
+import kotlin.collections.ArrayList
 
-class MainActivityViewModel constructor(private val list: ArrayList<NumberModel>) : ViewModel() {
+class MainActivityViewModel: ViewModel() {
 
-    lateinit var liveDataList: MutableLiveData<ArrayList<NumberModel>>
-//    var liveDataList: MutableLiveData<ArrayList<NumberModel>> = MutableLiveData()
+    private val _liveDataList = MutableLiveData<List<NumberModel>>(myNumber())
+    val liveDataList: LiveData<List<NumberModel>> get() = _liveDataList
+
+    private val deletedPool: Queue<Int> = LinkedList()
 
     init {
-        liveDataList = MutableLiveData()
-//        liveDataList.value =
-
+        addItem()
     }
 
-    fun getLiveDataObserver() : MutableLiveData<ArrayList<NumberModel>> {
-        return liveDataList
+    fun deleteItem(number: Int) {
+        deletedPool.add(number) // TODO обернуть в корутину
+        val list = _liveDataList.value?.filter { it.number != number } ?: error("") //TODO
+        _liveDataList.value = list
     }
 
-    fun refreshList() {
-        liveDataList.postValue(list)
+    private fun myNumber(): ArrayList<NumberModel>{
+        val numberList = ArrayList<NumberModel>()
+
+        lateinit var number: NumberModel
+        for (i in 1..15) {
+            number = NumberModel(i)
+            numberList.add(number)
+        }
+
+        return numberList
     }
 
-//    private fun myNumber(): ArrayList<NumberModel>{
-//        val numberList = ArrayList<NumberModel>()
-//
-//        lateinit var number: NumberModel
-//        for (i in 1..15) {
-//            number = NumberModel(i)
-//            numberList.add(number)
-//        }
-//
-//        return numberList
-//    }
-
+    private fun addItem() {
+        var i = 16
+        GlobalScope.launch {
+            withContext(Dispatchers.Main) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    while (true) {
+                        delay(2_000)
+                        val list = _liveDataList.value?.toMutableList() ?: error("") //TODO
+                        if (deletedPool.isEmpty()) {
+                            list.add(NumberModel(i))
+                            i++
+                        } else {
+                            list.add(NumberModel(deletedPool.remove()))
+                        }
+                        _liveDataList.value = list
+                    }
+                }
+            }
+        }
+    }
 }
