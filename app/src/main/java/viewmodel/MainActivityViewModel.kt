@@ -40,12 +40,12 @@ class MainActivityViewModel: ViewModel() {
     }
 
     private fun addItem() {
-        var i = 16
+        var i = 16  // TODO: тоже брать эту переменную из SharedPreferences
         GlobalScope.launch {
             withContext(Dispatchers.Main) {
                 CoroutineScope(Dispatchers.Main).launch {
                     while (true) {
-                        delay(2_000)
+                        delay(1_000)
                         val list = _liveDataList.value?.toMutableList() ?: error("") //TODO
                         if (deletedPool.isEmpty()) {
                             list.add(NumberModel(i))
