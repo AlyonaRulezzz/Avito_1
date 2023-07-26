@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.example.avito_tech_bx_android_trainee_assigment.MainActivity
 import com.example.avito_tech_bx_android_trainee_assigment.adapter.NumberAdapter
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.coroutines.*
@@ -12,7 +13,7 @@ import kotlin.collections.ArrayList
 
 class MainActivityViewModel: ViewModel() {
 
-    private val _liveDataList = MutableLiveData<List<NumberModel>>(myNumber())
+    val _liveDataList = MutableLiveData<List<NumberModel>>(myNumber())
     val liveDataList: LiveData<List<NumberModel>> get() = _liveDataList
 
     private val deletedPool: Queue<Int> = LinkedList()
@@ -27,7 +28,7 @@ class MainActivityViewModel: ViewModel() {
         _liveDataList.value = list
     }
 
-    private fun myNumber(): ArrayList<NumberModel>{
+    fun myNumber(): ArrayList<NumberModel>{
         val numberList = ArrayList<NumberModel>()
 
         lateinit var number: NumberModel
