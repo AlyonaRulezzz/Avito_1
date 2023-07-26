@@ -1,5 +1,6 @@
 package viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -18,9 +19,9 @@ class MainActivityViewModel: ViewModel() {
 
     private val deletedPool: Queue<Int> = LinkedList()
 
-    init {
-        addItem()
-    }
+//    init {
+//        addItem()
+//    }
 
     fun deleteItem(number: Int) {
         deletedPool.add(number) // TODO обернуть в корутину
@@ -40,8 +41,11 @@ class MainActivityViewModel: ViewModel() {
         return numberList
     }
 
-    private fun addItem() {
-        var i = 16  // TODO: тоже брать эту переменную из SharedPreferences
+    fun addItem(nextNumber: Int) {
+//        val nextNumber = _liveDataList.value?.last()?.number?.plus(1)
+        var i = nextNumber ?: 16
+        Log.d("MY_LOG_addItem", nextNumber.toString())
+//        var i = 16  // TODO: тоже брать эту переменную из SharedPreferences
         GlobalScope.launch {
             withContext(Dispatchers.Main) {
                 CoroutineScope(Dispatchers.Main).launch {

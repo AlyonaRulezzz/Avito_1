@@ -35,11 +35,6 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences.edit()
     }
 
-    val APP_PREFERENCES = "mySettings"
-    val APP_PREFERENCES_LIST = "mySettingsList"
-//    val sharedPreferences = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
-//    val editor: SharedPreferences.Editor = sharedPreferences.edit()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -48,12 +43,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-//        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-//        editor = sharedPreferences.edit()
-
-//        viewModel.liveDataList.value.apply { loadListFromSharedPreferences(this@MainActivity, "listOfNumberModel") }
-        viewModel._liveDataList.value = loadListFromSharedPreferences(this, "listOfNumberModel")
+        if (loadListFromSharedPreferences(this, "listOfNumberModel").isEmpty()) {
+            viewModel._liveDataList.value = loadListFromSharedPreferences(this, "listOfNumberModel")
+        } else {
+            viewModel.myNumber()
+        }
         Log.d("MY_LOG_on_create", sharedPreferences.getString("listOfNumberModel", null).toString())
+
+        viewModel.addItem(viewModel._liveDataList.value?.last()?.number?.plus(1) ?: 16)
 
         viewModel.liveDataList.observe(this) {
             it?.let { adapter.setList(it) }
