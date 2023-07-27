@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        if (loadListFromSharedPreferences(this, "listOfNumberModel").isEmpty()) {
+        if (loadListFromSharedPreferences(this, "listOfNumberModel").isNotEmpty()) {
             viewModel._liveDataList.value = loadListFromSharedPreferences(this, "listOfNumberModel")
         } else {
             viewModel.myNumber()
@@ -97,7 +97,9 @@ class MainActivity : AppCompatActivity() {
 
         // Преобразуем строку JSON обратно в список
         val type = object : TypeToken<List<NumberModel>>() {}.type
-        return Gson().fromJson(jsonList, type) as List<NumberModel> ?: emptyList<NumberModel>()  // TODO: default заменить на лист из 15 элементов
-    }
+//        return if (Gson().fromJson(jsonList, type)!= null)  (Gson().fromJson(jsonList, type) as List<NumberModel>) else emptyList<NumberModel>()  // TODO: default заменить на лист из 15 элементов
+        return (Gson().fromJson(jsonList, type) as? List<NumberModel>) ?: emptyList<NumberModel>()  // TODO: default заменить на лист из 15 элементов
+
+}
 
 }

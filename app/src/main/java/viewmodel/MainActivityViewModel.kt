@@ -42,15 +42,13 @@ class MainActivityViewModel: ViewModel() {
     }
 
     fun addItem(nextNumber: Int) {
-//        val nextNumber = _liveDataList.value?.last()?.number?.plus(1)
         var i = nextNumber ?: 16
         Log.d("MY_LOG_addItem", nextNumber.toString())
-//        var i = 16  // TODO: тоже брать эту переменную из SharedPreferences
         GlobalScope.launch {
             withContext(Dispatchers.Main) {
                 CoroutineScope(Dispatchers.Main).launch {
                     while (true) {
-                        delay(1_000)
+                        delay(2_000)
                         val list = _liveDataList.value?.toMutableList() ?: error("") //TODO
                         if (deletedPool.isEmpty()) {
                             list.add(NumberModel(i))
