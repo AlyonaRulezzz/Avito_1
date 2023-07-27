@@ -32,6 +32,8 @@ class NumberAdapter(
             itemView.iv_cancel.setOnClickListener {
                 listener(value.number)
                 notifyItemRemoved(layoutPosition)
+//                notifyItemChanged(layoutPosition)
+//                notifyItemInserted(layoutPosition)
             }
         }
     }

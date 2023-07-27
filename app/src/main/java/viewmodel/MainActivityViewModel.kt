@@ -3,25 +3,24 @@ package viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.example.avito_tech_bx_android_trainee_assigment.MainActivity
-import com.example.avito_tech_bx_android_trainee_assigment.adapter.NumberAdapter
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivityViewModel: ViewModel() {
+class MainActivityViewModel(l: List<NumberModel>) : ViewModel() {
 
-    val _liveDataList = MutableLiveData<List<NumberModel>>(myNumber())
+    val _liveDataList = MutableLiveData<List<NumberModel>>(if (l.isNotEmpty()) l else myNumber())
+
     val liveDataList: LiveData<List<NumberModel>> get() = _liveDataList
 
     private val deletedPool: Queue<Int> = LinkedList()
 
-//    init {
-//        addItem()
-//    }
+    init {
+        addItem(_liveDataList.value?.last()?.number?.plus(1)!!)
+//        Log.d("MY_LOG_addItem", _liveDataList.value?.last()?.number?.plus(1)!!.toString())
+    }
 
     fun deleteItem(number: Int) {
         deletedPool.add(number) // TODO обернуть в корутину
@@ -42,7 +41,7 @@ class MainActivityViewModel: ViewModel() {
     }
 
     fun addItem(nextNumber: Int) {
-        var i = nextNumber ?: 16
+        var i = nextNumber
         Log.d("MY_LOG_addItem", nextNumber.toString())
         GlobalScope.launch {
             withContext(Dispatchers.Main) {

@@ -14,7 +14,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import viewmodel.MainActivityViewModel
 import viewmodel.MainActivityViewModelFactory
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val viewModel by lazy {
-        ViewModelProvider(this, MainActivityViewModelFactory())[MainActivityViewModel::class.java]
+        ViewModelProvider(this, MainActivityViewModelFactory(loadListFromSharedPreferences(this, "listOfNumberModel")))[MainActivityViewModel::class.java]
     }
 
     private val sharedPreferences: SharedPreferences by lazy {
@@ -43,16 +42,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        if (loadListFromSharedPreferences(this, "listOfNumberModel").isNotEmpty()) {
-            viewModel._liveDataList.value = loadListFromSharedPreferences(this, "listOfNumberModel")
-        } else {
-            viewModel.myNumber()
-        }
+//        if (loadListFromSharedPreferences(this, "listOfNumberModel").isNotEmpty()) {
+//            viewModel._liveDataList.value = loadListFromSharedPreferences(this, "listOfNumberModel")
+//        } else {
+//            viewModel.myNumber()
+//        }
         Log.d("MY_LOG_on_create", sharedPreferences.getString("listOfNumberModel", null).toString())
 
-        viewModel.addItem(viewModel._liveDataList.value?.last()?.number?.plus(1) ?: 16)
+//        viewModel.addItem(viewModel.liveDataList.value?.last()?.number?.plus(1) ?: 16)
+//        Log.d("MY_LOG_addItem", viewModel.liveDataList.value?.last()?.number?.plus(1)!!.toString())
 
-        viewModel.liveDataList.observe(this) {
+        viewModel._liveDataList.observe(this) {
             it?.let { adapter.setList(it) }
             binding.rvNumber.scrollToPosition(it.lastIndex)
         }
