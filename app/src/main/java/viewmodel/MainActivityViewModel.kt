@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.coroutines.*
 import java.util.*
@@ -43,9 +44,9 @@ class MainActivityViewModel(l: List<NumberModel>) : ViewModel() {
     fun addItem(nextNumber: Int) {
         var i = nextNumber
         Log.d("MY_LOG_addItem", nextNumber.toString())
-        GlobalScope.launch {
-            withContext(Dispatchers.Main) {
-                CoroutineScope(Dispatchers.Main).launch {
+        viewModelScope.launch {
+//            withContext(Dispatchers.Main) {
+//                CoroutineScope(Dispatchers.Main).launch {
                     while (true) {
                         delay(2_000)
                         val list = _liveDataList.value?.toMutableList() ?: error("") //TODO
@@ -57,8 +58,8 @@ class MainActivityViewModel(l: List<NumberModel>) : ViewModel() {
                         }
                         _liveDataList.value = list
                     }
-                }
-            }
+//                }
+//            }
         }
     }
 }
