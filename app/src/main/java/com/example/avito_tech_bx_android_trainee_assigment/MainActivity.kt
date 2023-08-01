@@ -1,17 +1,25 @@
 package com.example.avito_tech_bx_android_trainee_assigment
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.GridLayout
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.avito_tech_bx_android_trainee_assigment.adapter.NumberAdapter
 import com.example.avito_tech_bx_android_trainee_assigment.databinding.ActivityMainBinding
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.activity_main.view.*
 import viewmodel.MainActivityViewModel
 import viewmodel.MainActivityViewModelFactory
 
@@ -34,23 +42,24 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences.edit()
     }
 
+//    private lateinit var layoutManager: GridLayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.rvNumber.adapter = adapter
+        binding.rvNumber.layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            GridLayoutManager(this, 2)
+        } else {
+            GridLayoutManager(this, 4)
+        }
+//        binding.rvNumber.layoutManager = layoutManager
         initViewModel()
     }
 
-    private fun initViewModel() {
-//        if (loadListFromSharedPreferences(this, "listOfNumberModel").isNotEmpty()) {
-//            viewModel._liveDataList.value = loadListFromSharedPreferences(this, "listOfNumberModel")
-//        } else {
-//            viewModel.myNumber()
-//        }
-        Log.d("MY_LOG_on_create", sharedPreferences.getString("listOfNumberModel", null).toString())
 
-//        viewModel.addItem(viewModel.liveDataList.value?.last()?.number?.plus(1) ?: 16)
-//        Log.d("MY_LOG_addItem", viewModel.liveDataList.value?.last()?.number?.plus(1)!!.toString())
+    private fun initViewModel() {
+        Log.d("MY_LOG_on_create", sharedPreferences.getString("listOfNumberModel", null).toString())
 
         viewModel._liveDataList.observe(this) {
             it?.let { adapter.setList(it) }
@@ -59,8 +68,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun adapterListener(value: Int) {
-        Toast.makeText(this, "deleted $value", Toast.LENGTH_SHORT).show()
-        viewModel.deleteItem(value)
+        AlertDialog.Builder(this)
+            .setTitle("Delete item")
+            .setMessage("Babe, are you sure?")
+            .setIcon(R.drawable.ic_baseline_delete_24)
+            .setPositiveButton("Yeap") { _, _ ->
+                Toast.makeText(this, "deleted $value", Toast.LENGTH_SHORT).show()
+                viewModel.deleteItem(value)
+            }
+            .setNegativeButton("Nope") {_, _ ->
+                Toast.makeText(this, "Good choice, pal)", Toast.LENGTH_SHORT).show()
+            }
+            .create()
+            .show()
     }
 
 
@@ -93,12 +113,11 @@ class MainActivity : AppCompatActivity() {
 
         // Получаем строку из SharedPreferences
         val jsonList =
-            sharedPreferences.getString(key, null) // TODO: default заменить на лист из 15 элементов
+            sharedPreferences.getString(key, null)
 
         // Преобразуем строку JSON обратно в список
         val type = object : TypeToken<List<NumberModel>>() {}.type
-//        return if (Gson().fromJson(jsonList, type)!= null)  (Gson().fromJson(jsonList, type) as List<NumberModel>) else emptyList<NumberModel>()  // TODO: default заменить на лист из 15 элементов
-        return (Gson().fromJson(jsonList, type) as? List<NumberModel>) ?: emptyList<NumberModel>()  // TODO: default заменить на лист из 15 элементов
+        return (Gson().fromJson(jsonList, type) as? List<NumberModel>) ?: emptyList<NumberModel>()
 
 }
 
