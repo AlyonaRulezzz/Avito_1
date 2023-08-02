@@ -71,7 +71,7 @@ class ViewmodelRecyclerviewFragment : Fragment() {
     private fun initViewModel() {
         Log.d("MY_LOG_on_create", sharedPreferences.getString("listOfNumberModel", null).toString())
 
-        viewModel._liveDataList.observe(this) {
+        viewModel._liveDataList.observe(viewLifecycleOwner) {
             it?.let { adapter.setList(it) }
             binding.rvNumber.scrollToPosition(it.lastIndex)
         }
