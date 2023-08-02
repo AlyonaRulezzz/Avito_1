@@ -29,7 +29,8 @@ class ViewmodelRecyclerviewFragment : Fragment() {
         FragmentViewmodelRecyclerviewBinding.inflate(layoutInflater)
     }
 
-    private var factory = ViewmodelRecyclerviewViewModelFactory(loadListFromSharedPreferences(requireContext(), "listOfNumberModel"))
+    private lateinit var factory: ViewmodelRecyclerviewViewModelFactory
+//    var factory = ViewmodelRecyclerviewViewModelFactory(loadListFromSharedPreferences(requireContext(), "listOfNumberModel"))
 
     private lateinit var viewModel: ViewmodelRecyclerviewViewModel
 //    private val viewModel by lazy {
@@ -50,14 +51,18 @@ class ViewmodelRecyclerviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        var factory = ViewmodelRecyclerviewViewModelFactory(loadListFromSharedPreferences(requireContext(), "listOfNumberModel"))
+//    private val viewModel by lazy {
         viewModel = ViewModelProvider(this, factory).get(ViewmodelRecyclerviewViewModel::class.java)
-
+//    }
         return inflater.inflate(R.layout.fragment_viewmodel_recyclerview, container, false)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+//    override fun onCreate(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+//        super.onCreate(savedInstanceState)
 //        setContentView(binding.root)
         binding.rvNumber.adapter = adapter
         binding.rvNumber.layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -94,17 +99,22 @@ class ViewmodelRecyclerviewFragment : Fragment() {
     }
 
 
-    override fun onStop() {
+    override fun onDestroyView() {
         saveListToSharedPreferences(requireContext(), viewModel.liveDataList.value!!, "listOfNumberModel")
         Log.d("MY_LOG_on_stop", sharedPreferences.getString("listOfNumberModel", null).toString())
-        super.onStop()
+        super.onDestroyView()
     }
 
-    override fun onDestroy() {
-        Log.d("MY_LOG_on_destroy", sharedPreferences.getString("listOfNumberModel", null).toString())
-//        saveListToSharedPreferences(this, viewModel.liveDataList.value!!, "listOfNumberModel")
-        super.onDestroy()
-    }
+//    override fun onStop() {
+////        saveListToSharedPreferences(requireContext(), viewModel.liveDataList.value!!, "listOfNumberModel")
+//        Log.d("MY_LOG_on_stop", sharedPreferences.getString("listOfNumberModel", null).toString())
+//        super.onStop()
+//    }
+//
+//    override fun onDestroy() {
+//        Log.d("MY_LOG_on_destroy", sharedPreferences.getString("listOfNumberModel", null).toString())
+//        super.onDestroy()
+//    }
 
     // Функция для сохранения списка в SharedPreferences
     fun saveListToSharedPreferences(context: Context, list: List<NumberModel>, key: String) {
