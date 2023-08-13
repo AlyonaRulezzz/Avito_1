@@ -1,25 +1,21 @@
 package viewmodel
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.avito_tech_bx_android_trainee_assigment.R
-//import com.example.avito_tech_bx_android_trainee_assigment.adapter.NumberAdapter
+import com.example.avito_tech_bx_android_trainee_assigment.adapter.NumberAdapter
 import com.example.avito_tech_bx_android_trainee_assigment.databinding.FragmentViewmodelRecyclerviewBinding
-import com.example.avito_tech_bx_android_trainee_assigment.databinding.ItemNumberLayoutBinding
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -27,70 +23,13 @@ import kotlinx.android.synthetic.main.item_number_layout.view.*
 
 
 class ViewmodelRecyclerviewFragment : Fragment() {
-
-    class NumberAdapter(
-        val listener: (value: Int) -> Unit,
-    ): RecyclerView.Adapter<NumberAdapter.NumberViewHolder>() {
-
-
-        private var numberList = emptyList<NumberModel>()
-
-        private var i = 0
-
-        inner class NumberViewHolder(val binding: ItemNumberLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-
-            private val context = binding.root.context
-
-            fun bind(value: NumberModel) {
-                itemView.tv_number.text = value.number.toString()
-                val res = ContextCompat.getDrawable(context, R.drawable.ic_baseline_delete_24)
-                itemView.iv_cancel.setImageDrawable(res)
-                itemView.iv_cancel.setOnClickListener {
-                    listener(value.number)
-                    notifyItemRemoved(layoutPosition)
-                }
-            }
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumberViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_number_layout, parent, false)
-            val inflater = LayoutInflater.from(parent.context)
-            val binding = ItemNumberLayoutBinding.inflate(inflater, parent, false)
-            return NumberViewHolder(binding)
-        }
-
-        override fun onBindViewHolder(holder: NumberViewHolder, position: Int) {
-            val item = numberList[position]
-            holder.bind(item)
-        }
-
-        override fun getItemCount(): Int {
-            return numberList.size
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        fun setList(list: List<NumberModel>) {
-            numberList = list
-            notifyDataSetChanged()
-        }
-    }
-////////////////////////////////////////
     private val adapter: NumberAdapter = NumberAdapter(::adapterListener)
 
-//    private val binding: FragmentViewmodelRecyclerviewBinding by lazy {
-//        FragmentViewmodelRecyclerviewBinding.inflate(layoutInflater)
-//    }
     lateinit var binding: FragmentViewmodelRecyclerviewBinding
 
     private lateinit var factory: ViewmodelRecyclerviewViewModelFactory
-//    var factory = ViewmodelRecyclerviewViewModelFactory(loadListFromSharedPreferences(requireContext(), "listOfNumberModel"))
 
     private lateinit var viewModel: ViewmodelRecyclerviewViewModel
-//    private val viewModel by lazy {
-//    viewModel = ViewModelProviders.of(this, factory).get(ViewmodelRecyclerviewViewModel::class.java)
-//        ViewModelProviders.of(this, factory).get(ViewmodelRecyclerviewViewModel::class.java)
-//        ViewModelProviders.of(this, ViewmodelRecyclerviewViewModelFactory(loadListFromSharedPreferences(requireContext(), "listOfNumberModel"))).get(ViewmodelRecyclerviewViewModel::class.java)
-//    }
 
     private val sharedPreferences: SharedPreferences by lazy {
         requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
@@ -98,7 +37,6 @@ class ViewmodelRecyclerviewFragment : Fragment() {
     private val editor: SharedPreferences.Editor by lazy {
         sharedPreferences.edit()
     }
-//    private lateinit var viewModel: ViewmodelRecyclerviewViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -160,22 +98,11 @@ class ViewmodelRecyclerviewFragment : Fragment() {
     }
 
 
-    override fun onDestroyView() {
+    override fun onPause() {
+        super.onPause()
         saveListToSharedPreferences(requireContext(), viewModel.liveDataList.value!!, "listOfNumberModel")
-        Log.d("MY_LOG_on_stop", sharedPreferences.getString("listOfNumberModel", null).toString())
-        super.onDestroyView()
+        Log.d("MY_LOG_on_pause", sharedPreferences.getString("listOfNumberModel", null).toString())
     }
-
-//    override fun onStop() {
-////        saveListToSharedPreferences(requireContext(), viewModel.liveDataList.value!!, "listOfNumberModel")
-//        Log.d("MY_LOG_on_stop", sharedPreferences.getString("listOfNumberModel", null).toString())
-//        super.onStop()
-//    }
-//
-//    override fun onDestroy() {
-//        Log.d("MY_LOG_on_destroy", sharedPreferences.getString("listOfNumberModel", null).toString())
-//        super.onDestroy()
-//    }
 
     // Функция для сохранения списка в SharedPreferences
     fun saveListToSharedPreferences(context: Context, list: List<NumberModel>, key: String) {

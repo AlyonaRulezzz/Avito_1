@@ -13,7 +13,7 @@ import kotlin.collections.ArrayList
 
 class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel() {
 
-    val _liveDataList = MutableLiveData<List<NumberModel>>(if (l.isNotEmpty()) l else myNumber())
+    val _liveDataList = MutableLiveData<List<NumberModel>>(l.ifEmpty { myNumber() })
 
     val liveDataList: LiveData<List<NumberModel>> get() = _liveDataList
 
