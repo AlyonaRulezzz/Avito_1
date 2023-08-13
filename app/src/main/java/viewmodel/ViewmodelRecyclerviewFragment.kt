@@ -160,17 +160,17 @@ class ViewmodelRecyclerviewFragment : Fragment() {
     }
 
 
-    override fun onDestroyView() {
-        saveListToSharedPreferences(requireContext(), viewModel.liveDataList.value!!, "listOfNumberModel")
-        Log.d("MY_LOG_on_stop", sharedPreferences.getString("listOfNumberModel", null).toString())
-        super.onDestroyView()
-    }
-
-//    override fun onStop() {
-////        saveListToSharedPreferences(requireContext(), viewModel.liveDataList.value!!, "listOfNumberModel")
+//    override fun onDestroyView() {
+//        saveListToSharedPreferences(requireContext(), viewModel.liveDataList.value!!, "listOfNumberModel")
 //        Log.d("MY_LOG_on_stop", sharedPreferences.getString("listOfNumberModel", null).toString())
-//        super.onStop()
+//        super.onDestroyView()
 //    }
+
+    override fun onPause() {
+        super.onPause()
+        saveListToSharedPreferences(requireContext(), viewModel.liveDataList.value!!, "listOfNumberModel")
+        Log.d("MY_LOG_on_pause", sharedPreferences.getString("listOfNumberModel", null).toString())
+    }
 //
 //    override fun onDestroy() {
 //        Log.d("MY_LOG_on_destroy", sharedPreferences.getString("listOfNumberModel", null).toString())
