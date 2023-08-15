@@ -1,4 +1,4 @@
-package viewmodel
+package com.example.avito_tech_bx_android_trainee_assigment.fragments
 
 import android.app.AlertDialog
 import android.content.Context
@@ -20,6 +20,8 @@ import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.item_number_layout.view.*
+import viewmodel.ViewmodelRecyclerviewViewModel
+import viewmodel.ViewmodelRecyclerviewViewModelFactory
 
 
 class ViewmodelRecyclerviewFragment : Fragment() {

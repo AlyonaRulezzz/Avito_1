@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.avito_tech_bx_android_trainee_assigment.PickedItemFragment
 import com.example.avito_tech_bx_android_trainee_assigment.R
 import com.example.avito_tech_bx_android_trainee_assigment.databinding.ItemNumberLayoutBinding
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_number_layout.view.*
 import androidx.fragment.app.Fragment
+import com.example.avito_tech_bx_android_trainee_assigment.fragments.PickedItemFragment
 
 
 class NumberAdapter(

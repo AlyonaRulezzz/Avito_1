@@ -1,4 +1,4 @@
-package com.example.avito_tech_bx_android_trainee_assigment
+package com.example.avito_tech_bx_android_trainee_assigment.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.avito_tech_bx_android_trainee_assigment.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

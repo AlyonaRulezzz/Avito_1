@@ -5,8 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.avito_tech_bx_android_trainee_assigment.databinding.ActivityMainBinding
-import com.example.avito_tech_bx_android_trainee_assigment.databinding.FragmentViewmodelRecyclerviewBinding
-import viewmodel.ViewmodelRecyclerviewFragment
+import com.example.avito_tech_bx_android_trainee_assigment.fragments.ViewmodelRecyclerviewFragment
 
 class MainActivity : AppCompatActivity() {
 
