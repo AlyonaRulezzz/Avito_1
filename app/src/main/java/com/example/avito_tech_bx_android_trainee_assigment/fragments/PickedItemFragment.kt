@@ -56,23 +56,15 @@ class PickedItemFragment : Fragment() {
          */
         @JvmStatic
         fun newInstance(param1: Int)
-        : PickedItemFragment {
-            val arguments = Bundle().apply {
-                putInt(ARG_PARAM1, param1)
-            }
-            val fragmentPickedItem = PickedItemFragment()
-            fragmentPickedItem.arguments = arguments
-            return fragmentPickedItem
-        }
 
-//        = PickedItemFragment().apply {
-//                    arguments = Bundle().apply {
-//                        putInt(ARG_PARAM1, param1)
-////                        putString(ARG_PARAM2, param2)
-//                    }
-//                    val fragmentPickedItem = PickedItemFragment()
-//                    fragmentPickedItem.arguments = arguments
-//                    return@apply
-//                }
+        = PickedItemFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt(ARG_PARAM1, param1)
+//                        putString(ARG_PARAM2, param2)
+                    }
+                    val fragmentPickedItem = PickedItemFragment()
+                    fragmentPickedItem.arguments = arguments
+                    return@apply
+                }
     }
 }
