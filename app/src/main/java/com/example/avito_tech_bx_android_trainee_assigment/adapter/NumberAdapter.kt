@@ -3,7 +3,6 @@ package com.example.avito_tech_bx_android_trainee_assigment.adapter
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -13,7 +12,6 @@ import com.example.avito_tech_bx_android_trainee_assigment.databinding.ItemNumbe
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_number_layout.view.*
-import androidx.fragment.app.Fragment
 import com.example.avito_tech_bx_android_trainee_assigment.fragments.PickedItemFragment
 
 
@@ -54,8 +52,6 @@ class NumberAdapter(
         holder.itemView.setOnClickListener {
             Log.d("MY_LOG_clickListener", "inside clickListenerOnNumber for PickedItemFragment")
             val fragmentPickedItem = PickedItemFragment.newInstance(item.number)
-//                val fragmentManager = fragmentPickedItem.childFragmentManager
-//            val fragmentManager = fragmentPickedItem.requireParentFragment().parentFragmentManager
                     val activity = it.context as AppCompatActivity
                         val fragmentManager = activity.supportFragmentManager
                 .beginTransaction()

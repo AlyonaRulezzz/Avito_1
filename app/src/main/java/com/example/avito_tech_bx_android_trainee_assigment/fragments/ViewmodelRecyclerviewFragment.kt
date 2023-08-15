@@ -45,9 +45,7 @@ class ViewmodelRecyclerviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         factory = ViewmodelRecyclerviewViewModelFactory(loadListFromSharedPreferences(requireContext(), "listOfNumberModel"))
-//    private val viewModel by lazy {
         viewModel = ViewModelProvider(this, factory).get(ViewmodelRecyclerviewViewModel::class.java)
-//    }
 
         // Сначала раздуть макет и получить переменную binding
         val rootView = inflater.inflate(R.layout.fragment_viewmodel_recyclerview, container, false)
