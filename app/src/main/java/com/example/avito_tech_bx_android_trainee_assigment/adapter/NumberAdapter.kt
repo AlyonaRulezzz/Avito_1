@@ -3,14 +3,19 @@ package com.example.avito_tech_bx_android_trainee_assigment.adapter
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.avito_tech_bx_android_trainee_assigment.PickedItemFragment
 import com.example.avito_tech_bx_android_trainee_assigment.R
 import com.example.avito_tech_bx_android_trainee_assigment.databinding.ItemNumberLayoutBinding
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_number_layout.view.*
+import androidx.fragment.app.Fragment
+
 
 class NumberAdapter(
     val listener: (value: Int) -> Unit,
@@ -46,6 +51,19 @@ class NumberAdapter(
     override fun onBindViewHolder(holder: NumberViewHolder, position: Int) {
         val item = numberList[position]
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            Log.d("MY_LOG_clickListener", "AAAAAAAAAAA")
+            val fragmentPickedItem = PickedItemFragment.newInstance(item.number)
+//                val fragmentManager = fragmentPickedItem.childFragmentManager
+//            val parent = it.context as Fragment
+//            val fragmentManager = fragmentPickedItem.requireParentFragment().parentFragmentManager
+                    val activity = it.context as AppCompatActivity
+                        val fragmentManager = activity.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragmentPickedItem)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun getItemCount(): Int {

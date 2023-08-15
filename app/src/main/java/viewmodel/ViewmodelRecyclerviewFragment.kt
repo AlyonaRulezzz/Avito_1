@@ -61,6 +61,8 @@ class ViewmodelRecyclerviewFragment : Fragment() {
         }
         initViewModel()
 
+
+
         return rootView
     }
 
