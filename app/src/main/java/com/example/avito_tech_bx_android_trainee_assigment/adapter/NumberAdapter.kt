@@ -52,10 +52,9 @@ class NumberAdapter(
         val item = numberList[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            Log.d("MY_LOG_clickListener", "AAAAAAAAAAA")
+            Log.d("MY_LOG_clickListener", "inside clickListenerOnNumber for PickedItemFragment")
             val fragmentPickedItem = PickedItemFragment.newInstance(item.number)
 //                val fragmentManager = fragmentPickedItem.childFragmentManager
-//            val parent = it.context as Fragment
 //            val fragmentManager = fragmentPickedItem.requireParentFragment().parentFragmentManager
                     val activity = it.context as AppCompatActivity
                         val fragmentManager = activity.supportFragmentManager
