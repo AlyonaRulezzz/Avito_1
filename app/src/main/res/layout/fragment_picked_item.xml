@@ -9,9 +9,17 @@
         android:id="@+id/tv_picked_item_number"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
+        android:text="@string/picked_item_number"
         android:textSize="36sp"
         android:textColor="@color/purple_700"
         android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/iv_picked_item_cancel"
+        android:layout_width="35sp"
+        android:layout_height="40sp"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_gravity="center"
+        android:layout_marginTop="50sp"/>
 
 </FrameLayout>

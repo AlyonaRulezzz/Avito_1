@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +36,9 @@ class PickedItemFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_picked_item, container, false).apply {
             findViewById<TextView>(R.id.tv_picked_item_number).text = param1.toString()
+            findViewById<ImageView>(R.id.iv_picked_item_cancel).setOnClickListener {
+
+            }
         }
     }
 
