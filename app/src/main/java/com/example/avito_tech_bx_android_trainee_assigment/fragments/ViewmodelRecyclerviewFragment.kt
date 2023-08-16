@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.avito_tech_bx_android_trainee_assigment.R
 import com.example.avito_tech_bx_android_trainee_assigment.adapter.NumberAdapter
 import com.example.avito_tech_bx_android_trainee_assigment.databinding.FragmentViewmodelRecyclerviewBinding
+import com.example.avito_tech_bx_android_trainee_assigment.fragments.contract.Navigator
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -24,8 +25,26 @@ import viewmodel.ViewmodelRecyclerviewViewModel
 import viewmodel.ViewmodelRecyclerviewViewModelFactory
 
 
-class ViewmodelRecyclerviewFragment : Fragment() {
-    private val adapter: NumberAdapter = NumberAdapter(::adapterListener)
+class ViewmodelRecyclerviewFragment : Fragment(), Navigator {
+    private val adapter: NumberAdapter = NumberAdapter(
+        object : NumberAdapter.ClickListener {
+            override fun openItem(value: Int) {
+                childFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.fragment_container,
+                        PickedItemFragment.newInstance(value),
+                        PickedItemFragment.TAG
+                    )
+                    .addToBackStack(null)
+                    .commit()
+            }
+
+            override fun deleteItem(value: Int) {
+                adapterListener(value)
+            }
+
+        }
+    )
 
     lateinit var binding: FragmentViewmodelRecyclerviewBinding
 
@@ -129,6 +148,14 @@ class ViewmodelRecyclerviewFragment : Fragment() {
         val type = object : TypeToken<List<NumberModel>>() {}.type
         return (Gson().fromJson(jsonList, type) as? List<NumberModel>) ?: emptyList<NumberModel>()
 
+    }
+
+    override fun addItem(nextNumber: Int) {
+        viewModel.addItem(nextNumber)
+    }
+
+    override fun deleteItem(number: Int) {
+        viewModel.deleteItem(number)
     }
 
 }

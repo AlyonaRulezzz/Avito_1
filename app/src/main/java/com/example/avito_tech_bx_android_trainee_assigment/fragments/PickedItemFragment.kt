@@ -12,34 +12,15 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.avito_tech_bx_android_trainee_assigment.R
 import com.example.avito_tech_bx_android_trainee_assigment.fragments.contract.Navigator
+import com.example.avito_tech_bx_android_trainee_assigment.fragments.contract.navigator
 import viewmodel.ViewmodelRecyclerviewViewModel
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "itemNumber"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PickedItemFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PickedItemFragment : Fragment() {
-    private var param1: Int? = null
-//    private var navigator: Navigator? = null
-
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        if (context is Navigator) {
-//            navigator = context
-//        } else {
-//            throw RuntimeException("$context need to implement Navigator")
-//        }
-//    }
+    private var param1: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getInt(ARG_PARAM1, 0)
-        }
+        param1 = requireArguments().getInt(ARG_PARAM1, 0)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +28,9 @@ class PickedItemFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_picked_item, container, false).apply {
             findViewById<TextView>(R.id.tv_picked_item_number).text = param1.toString()
-            findViewById<ImageView>(R.id.iv_picked_item_cancel).setOnClickListener {
-//                param1?.let { navigator?.deleteItem(it) }
+            findViewById<View>(R.id.iv_picked_item_cancel).setOnClickListener {
+                Log.d(TAG, "onCreateView: parent = $parentFragment")
+                navigator().deleteItem(param1)
             }
         }
     }
@@ -64,20 +46,14 @@ class PickedItemFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         */
-        @JvmStatic
-        fun newInstance(param1: Int)
+        const val TAG = "PickedItemFragment"
+        private const val ARG_PARAM1 = "${TAG}.extra.itemNumber"
 
-        = PickedItemFragment().apply {
-                    arguments = Bundle().apply {
-                        putInt(ARG_PARAM1, param1)
-                    }
-                    val fragmentPickedItem = PickedItemFragment()
-                    fragmentPickedItem.arguments = arguments
-                    return@apply
-                }
+        @JvmStatic
+        fun newInstance(param1: Int) = PickedItemFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_PARAM1, param1)
+            }
+        }
     }
 }

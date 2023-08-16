@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel(), Navigator {
+class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel() {
 
     val _liveDataList = MutableLiveData<List<NumberModel>>(l.ifEmpty { myNumber() })
 
@@ -24,7 +24,7 @@ class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel(), Naviga
         addItem(_liveDataList.value?.last()?.number?.plus(1)!!)
     }
 
-    override fun deleteItem(number: Int) {
+    fun deleteItem(number: Int) {
         viewModelScope.launch {
             deletedPool.add(number)
         }
@@ -44,7 +44,7 @@ class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel(), Naviga
         return numberList
     }
 
-    override fun addItem(nextNumber: Int) {
+    fun addItem(nextNumber: Int) {
         var i = nextNumber
         Log.d("MY_LOG_addItem", nextNumber.toString())
         viewModelScope.launch {
