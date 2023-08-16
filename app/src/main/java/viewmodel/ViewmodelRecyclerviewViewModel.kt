@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.avito_tech_bx_android_trainee_assigment.fragments.contract.Navigator
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel() {
+class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel(), Navigator {
 
     val _liveDataList = MutableLiveData<List<NumberModel>>(l.ifEmpty { myNumber() })
 
@@ -23,7 +24,7 @@ class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel() {
         addItem(_liveDataList.value?.last()?.number?.plus(1)!!)
     }
 
-    fun deleteItem(number: Int) {
+    override fun deleteItem(number: Int) {
         viewModelScope.launch {
             deletedPool.add(number)
         }
@@ -43,7 +44,7 @@ class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel() {
         return numberList
     }
 
-    fun addItem(nextNumber: Int) {
+    override fun addItem(nextNumber: Int) {
         var i = nextNumber
         Log.d("MY_LOG_addItem", nextNumber.toString())
         viewModelScope.launch {

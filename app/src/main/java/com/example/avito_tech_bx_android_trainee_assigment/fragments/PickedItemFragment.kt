@@ -1,13 +1,18 @@
 package com.example.avito_tech_bx_android_trainee_assigment.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import com.example.avito_tech_bx_android_trainee_assigment.R
+import com.example.avito_tech_bx_android_trainee_assigment.fragments.contract.Navigator
+import viewmodel.ViewmodelRecyclerviewViewModel
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "itemNumber"
@@ -19,6 +24,16 @@ private const val ARG_PARAM1 = "itemNumber"
  */
 class PickedItemFragment : Fragment() {
     private var param1: Int? = null
+//    private var navigator: Navigator? = null
+
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        if (context is Navigator) {
+//            navigator = context
+//        } else {
+//            throw RuntimeException("$context need to implement Navigator")
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +48,7 @@ class PickedItemFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_picked_item, container, false).apply {
             findViewById<TextView>(R.id.tv_picked_item_number).text = param1.toString()
             findViewById<ImageView>(R.id.iv_picked_item_cancel).setOnClickListener {
-
+//                param1?.let { navigator?.deleteItem(it) }
             }
         }
     }
@@ -46,7 +61,6 @@ class PickedItemFragment : Fragment() {
 //        val parentFragmentManager = parentFragment.parentFragmentManager
 
         // Ваши операции с фрагментом
-
     }
 
     companion object {
@@ -60,7 +74,6 @@ class PickedItemFragment : Fragment() {
         = PickedItemFragment().apply {
                     arguments = Bundle().apply {
                         putInt(ARG_PARAM1, param1)
-//                        putString(ARG_PARAM2, param2)
                     }
                     val fragmentPickedItem = PickedItemFragment()
                     fragmentPickedItem.arguments = arguments
