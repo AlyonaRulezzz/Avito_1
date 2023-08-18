@@ -59,6 +59,16 @@ class ViewmodelRecyclerviewFragment : Fragment(), Navigator {
         sharedPreferences.edit()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d("FRAGMENT_1", "onAttach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("FRAGMENT_1", "onCreate")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,25 +89,37 @@ class ViewmodelRecyclerviewFragment : Fragment(), Navigator {
             GridLayoutManager(context, 4)
         }
         initViewModel()
-
-
+        Log.d("FRAGMENT_1", "onCreateView")
 
         return rootView
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-//        super.onCreate(savedInstanceState)
-//        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("FRAGMENT_1", "onViewCreated")
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Log.d("FRAGMENT_1", "onViewStateRestored")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("FRAGMENT_1", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("FRAGMENT_1", "onResume")
     }
 
     private fun initViewModel() {
         Log.d("MY_LOG_on_create", sharedPreferences.getString("listOfNumberModel", null).toString())
 
         viewModel._liveDataList.observe(viewLifecycleOwner) {
-            it?.let { adapter.setList(it) }
+            it?.let {
+                adapter.setList(it) }
             binding.rvNumber.scrollToPosition(it.lastIndex)
         }
     }
@@ -123,6 +145,32 @@ class ViewmodelRecyclerviewFragment : Fragment(), Navigator {
         super.onPause()
         saveListToSharedPreferences(requireContext(), viewModel.liveDataList.value!!, "listOfNumberModel")
         Log.d("MY_LOG_on_pause", sharedPreferences.getString("listOfNumberModel", null).toString())
+        Log.d("FRAGMENT_1", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("FRAGMENT_1", "onStop")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("FRAGMENT_1", "onSaveInstanceState")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("FRAGMENT_1", "onDestroyView")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("FRAGMENT_1", "onDestroy")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("FRAGMENT_1", "onDetach")
     }
 
     // Функция для сохранения списка в SharedPreferences
@@ -157,5 +205,4 @@ class ViewmodelRecyclerviewFragment : Fragment(), Navigator {
     override fun deleteItem(number: Int) {
         viewModel.deleteItem(number)
     }
-
 }

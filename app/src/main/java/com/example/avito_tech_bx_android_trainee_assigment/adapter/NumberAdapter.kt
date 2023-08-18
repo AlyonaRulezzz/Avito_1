@@ -36,7 +36,7 @@ class NumberAdapter(
             val res = ContextCompat.getDrawable(context, R.drawable.ic_baseline_delete_24)
             itemView.iv_cancel.setImageDrawable(res)
             itemView.iv_cancel.setOnClickListener {
-                listener.deleteItem(value.number)
+//                listener.deleteItem(value.number)
                 notifyItemRemoved(layoutPosition)
             }
         }
@@ -53,15 +53,15 @@ class NumberAdapter(
         val item = numberList[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            listener.openItem(item.number)
-//            Log.d("MY_LOG_clickListener", "inside clickListenerOnNumber for PickedItemFragment")
-//            val fragmentPickedItem = PickedItemFragment.newInstance(item.number)
-//                    val activity = it.context as AppCompatActivity
-//                        val fragmentManager = activity.supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.fragment_container, fragmentPickedItem)
-//                .addToBackStack(null)
-//                .commit()
+//            listener.openItem(item.number)
+            Log.d("MY_LOG_clickListener", "inside clickListenerOnNumber for PickedItemFragment")
+            val fragmentPickedItem = PickedItemFragment.newInstance(item.number)
+                    val activity = it.context as AppCompatActivity
+                        val fragmentManager = activity.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragmentPickedItem)
+                .addToBackStack(null)
+                .commit()
         }
     }
 

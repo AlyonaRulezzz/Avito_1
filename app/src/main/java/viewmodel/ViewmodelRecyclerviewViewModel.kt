@@ -22,6 +22,12 @@ class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel() {
 
     init {
         addItem(_liveDataList.value?.last()?.number?.plus(1)!!)
+        Log.d("FRAGMENT_1_VIEWMODEL", "init")
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("FRAGMENT_1_VIEWMODEL", "onCleared")
     }
 
     fun deleteItem(number: Int) {
