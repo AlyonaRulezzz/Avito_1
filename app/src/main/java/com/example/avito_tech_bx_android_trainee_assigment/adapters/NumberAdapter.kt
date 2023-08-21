@@ -1,4 +1,4 @@
-package com.example.avito_tech_bx_android_trainee_assigment.adapter
+package com.example.avito_tech_bx_android_trainee_assigment.adapters
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -13,9 +13,6 @@ import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_number_layout.view.*
 import com.example.avito_tech_bx_android_trainee_assigment.fragments.PickedItemFragment
-import com.example.avito_tech_bx_android_trainee_assigment.fragments.ViewmodelRecyclerviewFragment
-import com.example.avito_tech_bx_android_trainee_assigment.fragments.contract.Navigator
-import viewmodel.ViewmodelRecyclerviewViewModel
 
 
 class NumberAdapter(
