@@ -59,6 +59,7 @@ class NumberAdapter(
                 .replace(R.id.fragment_container, fragmentPickedItem)
                 .addToBackStack(null)
                 .commit()
+
         }
     }
 

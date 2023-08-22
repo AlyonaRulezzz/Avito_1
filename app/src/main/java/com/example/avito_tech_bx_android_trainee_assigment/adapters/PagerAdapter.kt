@@ -9,18 +9,20 @@ import com.example.avito_tech_bx_android_trainee_assigment.fragments.ViewmodelRe
 
 class PagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    private var fragmentList: ArrayList<Fragment> = arrayListOf(ViewmodelRecyclerviewFragment(), PickedItemFragment())
+    private var fragmentList: ArrayList<Fragment> = arrayListOf(ViewmodelRecyclerviewFragment(), PickedItemFragment.newInstance(0))
 
     constructor(fragmentManager: FragmentManager, lifecycle: Lifecycle, fragmentList: ArrayList<Fragment>) : this(fragmentManager, lifecycle) {
         this.fragmentList = fragmentList
     }
 
     override fun getItemCount(): Int {
-        return fragmentList.size
+//        return fragmentList.size
+        return 2
     }
 
     override fun createFragment(position: Int): Fragment {
-        return fragmentList[position]
+//        return fragmentList[position]
+        return if (position == 0) ViewmodelRecyclerviewFragment() else PickedItemFragment.newInstance(0)
     }
 }
 
