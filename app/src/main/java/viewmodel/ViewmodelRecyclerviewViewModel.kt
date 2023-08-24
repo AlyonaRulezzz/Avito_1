@@ -27,7 +27,8 @@ class ViewmodelRecyclerviewViewModel(l: List<NumberModel>) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        Log.d("FRAGMENT_1_VIEWMODEL", "onCleared")
+//        Log.d("FRAGMENT_1_VIEWMODEL", "onCleared")
+        Log.d("FRAGMENT_1_VM_onCleared", this.toString())
     }
 
     fun deleteItem(number: Int) {

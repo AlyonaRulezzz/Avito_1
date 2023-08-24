@@ -28,14 +28,14 @@ class ViewmodelRecyclerviewFragment : Fragment(), Navigator {
     private val adapter: NumberAdapter = NumberAdapter(
         object : NumberAdapter.ClickListener {
             override fun openItem(value: Int) {
-                childFragmentManager.beginTransaction()
-                    .replace(
-                        R.id.fragment_container,
-                        PickedItemFragment.newInstance(value),
-                        PickedItemFragment.TAG
-                    )
-                    .addToBackStack(null)
-                    .commit()
+//                childFragmentManager.beginTransaction()
+//                    .replace(
+//                        R.id.fragment_container,
+//                        PickedItemFragment.newInstance(value),
+//                        PickedItemFragment.TAG
+//                    )
+//                    .addToBackStack(null)
+//                    .commit()
             }
 
             override fun deleteItem(value: Int) {
@@ -66,6 +66,7 @@ class ViewmodelRecyclerviewFragment : Fragment(), Navigator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("FRAGMENT_1", "onCreate")
+//        setRetainInstance(true)
     }
 
     override fun onCreateView(
@@ -131,6 +132,11 @@ class ViewmodelRecyclerviewFragment : Fragment(), Navigator {
             .setPositiveButton("Yeap") { _, _ ->
                 Toast.makeText(context, "deleted $value", Toast.LENGTH_SHORT).show()
                 viewModel.deleteItem(value)
+                viewModel._liveDataList.observe(viewLifecycleOwner) {
+                    it?.let {
+                        adapter.setList(it) }
+//                    binding.rvNumber.scrollToPosition(it.lastIndex)
+                }
             }
             .setNegativeButton("Nope") {_, _ ->
                 Toast.makeText(context, "Good choice, pal)", Toast.LENGTH_SHORT).show()

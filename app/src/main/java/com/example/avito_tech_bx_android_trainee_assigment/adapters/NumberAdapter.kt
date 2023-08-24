@@ -3,12 +3,14 @@ package com.example.avito_tech_bx_android_trainee_assigment.adapters
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.avito_tech_bx_android_trainee_assigment.R
 import com.example.avito_tech_bx_android_trainee_assigment.databinding.ItemNumberLayoutBinding
+import com.example.avito_tech_bx_android_trainee_assigment.fragments.PagerFragment
 import com.example.avito_tech_bx_android_trainee_assigment.model.NumberModel
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_number_layout.view.*
@@ -33,8 +35,9 @@ class NumberAdapter(
             val res = ContextCompat.getDrawable(context, R.drawable.ic_baseline_delete_24)
             itemView.iv_cancel.setImageDrawable(res)
             itemView.iv_cancel.setOnClickListener {
-//                listener.deleteItem(value.number)
-                notifyItemRemoved(layoutPosition)
+                listener.deleteItem(value.number)
+//                notifyItemRemoved(layoutPosition)
+//                notifyDataSetChanged()
             }
         }
     }
@@ -54,7 +57,9 @@ class NumberAdapter(
             Log.d("MY_LOG_clickListener", "inside clickListenerOnNumber for PickedItemFragment")
             val fragmentPickedItem = PickedItemFragment.newInstance(item.number)
                     val activity = it.context as AppCompatActivity
-                        val fragmentManager = activity.supportFragmentManager
+//            val activity = it.context as PagerFragment
+//            val fragmentManager = activity.childFragmentManager
+            val fragmentManager = activity.supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragmentPickedItem)
                 .addToBackStack(null)

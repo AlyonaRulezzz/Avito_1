@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity()/*, Navigator*/ {
         binding = ActivityMainBinding.inflate(layoutInflater)
 //        setContentView(R.layout.activity_main)
         setContentView(binding.root)
-//        gotToFragment(ViewmodelRecyclerviewFragment())
-        gotToFragment(PagerFragment())
+        gotToFragment(ViewmodelRecyclerviewFragment())
+//        gotToFragment(PagerFragment())
     }
 
     private fun gotToFragment(fragment: Fragment) {
